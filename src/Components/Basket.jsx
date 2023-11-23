@@ -1,38 +1,20 @@
-import React, { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import { BasketItem } from "./BasketItem";
+import React from "react";
+
 export const Basket = (props) => {
-  const {
-    order = [],
-    // handleBasketShow = Function.prototype,
-    // removeHandler = Function.prototype,
-  } = props;
-
-  const totalPrice = order.reduce((total, el) => {
-    return (total += el.price * el.quantity);
-  }, 0);
-
+  const { order = [] } = props;
+  console.log(order);
   return (
-    <ul className="basket basket-list">
-      <CloseIcon onClick={props.handleBasketShow} className="basket-close" />
-      <h2 className="collection-item active">Корзина</h2>
-      {order.length ? (
-        order.map((el) => {
-          console.log(el);
-          return (
-            <BasketItem
-              key={el.id}
-              {...el}
-              minusQuantity={props.minusQuantity}
-              removeHandler={props.removeHandler}
-              plusQuantity={props.plusQuantity}
-            />
-          );
-        })
-      ) : (
-        <li>Корзина Пуста</li>
-      )}
-      <h2 className="collection-item">Общая стоимость: {totalPrice}</h2>
-    </ul>
+    <div className="cart-container">
+      {order.map((item, index) => (
+        <div key={index} className="product">
+          {/* <img src={item.image} alt={item.name} className="product-image" /> */}
+          <h3>{item.name}</h3>
+          <p>${item.price}</p>
+          <button className="add-to-cart">Add to Cart</button>
+        </div>
+      ))}
+    </div>
   );
 };
+
+

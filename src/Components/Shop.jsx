@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { API_URL, API_KEY } from "../config";
-import { Preloader } from "./Preloader";
-import { GoodsList } from "./GoodsList";
-import { Cart } from "./Cart";
-import { Basket } from "./Basket";
+import { API_URL, API_KEY } from "../config.js";
+import { Preloader } from "./Preloader.jsx";
+import { GoodsList } from "./GoodsList.jsx";
+import { HandleServerAppError } from "./HandleServerAppError";
+import { Cart } from "./Cart.jsx";
+import { Basket } from "./Basket.jsx";
 
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState("idle");
 
   useEffect(() => {
     setLoading(true);
@@ -17,87 +20,53 @@ export const Shop = () => {
       res
         .json()
         .then((data) => {
-          data.featured && setGoods(data.featured);
+          setGoods(data.featured);
           setLoading(false);
         })
-        .catch((error) => alert(error.message))
+        .catch((error) => {
+          setLoading(false);
+          setError(error);
+        })
     );
+    window.scrollTo(0, 0);
   }, []);
 
-  const addToBasket = (item) => {
-    const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);
+  const buyProduct = (product) => {
+    const itemIndex = order.findIndex(
+      (orderItem) => orderItem.id === product.id
+    );
+
     if (itemIndex < 0) {
       const newItem = {
-        ...item,
-        quantity: 1,
+        ...product,
+        quatity: 1,
       };
-      setOrder([...order, newItem]);
+      setOrder([...order, product]);
     } else {
-      const newOrder = order.map((el, index) => {
-        if (index === itemIndex) {
+      const newOrder = order.map((orderItem, index) => {
+        if (index === orderItem.id) {
           return {
-            ...el,
-            quantity: el.quantity + 1,
+            ...order,
+            quatity: orderItem.quatity + 1,
           };
         } else {
-          return el;
+          return orderItem;
         }
       });
       setOrder(newOrder);
     }
   };
 
-  const handleBasketShow = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const removeHandler = (id) => {
-    const newOrder = order.filter((el) => el.id !== id);
-    setOrder(newOrder);
-  };
-
-  const plusQuantity = (id) => {
-    console.log(id);
-    const newOrder = order.map((el) => {
-      if (el.id === id) {
-        return { ...el, quantity: el.quantity + 1 };
-      } else {
-        return el;
-      }
-    });
-    setOrder(newOrder);
-  };
-
-  const minusQuantity = (id) => {
-    console.log(id);
-    const newOrder = order.map((el) => {
-      if (el.id === id) {
-        return { ...el, quantity: el.quantity - 1 >= 0 ? el.quantity - 1 : 0 };
-      } else {
-        return el;
-      }
-    });
-    setOrder(newOrder);
-  };
-
   return (
     <div>
-      <Cart quantity={order.length} handleBasketShow={handleBasketShow} />
-
+      <HandleServerAppError error={error} />
+      <Cart quatity={order.length} />
       {loading ? (
         <Preloader />
       ) : (
-        <GoodsList goods={goods} addToBasket={addToBasket} />
+        <GoodsList goods={goods} buyProduct={buyProduct} />
       )}
-      {isOpen && (
-        <Basket
-          order={order}
-          removeHandler={removeHandler}
-          handleBasketShow={handleBasketShow}
-          plusQuantity={plusQuantity}
-          minusQuantity={minusQuantity}
-        />
-      )}
+      <Basket order={order} />
     </div>
   );
 };

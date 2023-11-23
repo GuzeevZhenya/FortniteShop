@@ -6,20 +6,16 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
 export const GoodsItem = (props) => {
-  const { id, name, description, price, image, icon, full_background } =
-    props.goods;
-  const { addToBasket = Function.prototype } = props;
-
-  const [order, setOrder] = useState([]);
-
-  const handleAddToOrder = (item) => {
-    console.log(item);
-
-    props.addToBasket(item);
-    // const card = props.goods.find((card) => card.id === id);
-    // setOrder([...order, card]);
-  };
-
+  const {
+    id,
+    name,
+    description,
+    price,
+    image,
+    icon,
+    full_background,
+    buyProduct,
+  } = props;
   return (
     <Card className="card">
       <CardActionArea>
@@ -35,7 +31,7 @@ export const GoodsItem = (props) => {
       </CardActionArea>
       <CardActions>
         <Button
-          onClick={() => handleAddToOrder({ id, name, description, price })}
+          onClick={() => buyProduct({ id, name, description, price,full_background })}
           size="small"
           color="primary"
         >
