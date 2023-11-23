@@ -14,7 +14,7 @@ export const GoodsItem = (props) => {
 
   const handleAddToOrder = (item) => {
     console.log(item);
-   
+
     props.addToBasket(item);
     // const card = props.goods.find((card) => card.id === id);
     // setOrder([...order, card]);

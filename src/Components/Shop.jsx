@@ -14,10 +14,13 @@ export const Shop = () => {
   useEffect(() => {
     setLoading(true);
     fetch(API_URL, { headers: { Authorization: API_KEY } }).then((res) =>
-      res.json().then((data) => {
-        setGoods(data.specialFeatured);
-        setLoading(false);
-      })
+      res
+        .json()
+        .then((data) => {
+          data.featured && setGoods(data.featured);
+          setLoading(false);
+        })
+        .catch((error) => alert(error.message))
     );
   }, []);
 
@@ -26,7 +29,7 @@ export const Shop = () => {
     if (itemIndex < 0) {
       const newItem = {
         ...item,
-        quatity: 1,
+        quantity: 1,
       };
       setOrder([...order, newItem]);
     } else {
@@ -48,6 +51,35 @@ export const Shop = () => {
     setIsOpen(!isOpen);
   };
 
+  const removeHandler = (id) => {
+    const newOrder = order.filter((el) => el.id !== id);
+    setOrder(newOrder);
+  };
+
+  const plusQuantity = (id) => {
+    console.log(id);
+    const newOrder = order.map((el) => {
+      if (el.id === id) {
+        return { ...el, quantity: el.quantity + 1 };
+      } else {
+        return el;
+      }
+    });
+    setOrder(newOrder);
+  };
+
+  const minusQuantity = (id) => {
+    console.log(id);
+    const newOrder = order.map((el) => {
+      if (el.id === id) {
+        return { ...el, quantity: el.quantity - 1 >= 0 ? el.quantity - 1 : 0 };
+      } else {
+        return el;
+      }
+    });
+    setOrder(newOrder);
+  };
+
   return (
     <div>
       <Cart quantity={order.length} handleBasketShow={handleBasketShow} />
@@ -57,7 +89,15 @@ export const Shop = () => {
       ) : (
         <GoodsList goods={goods} addToBasket={addToBasket} />
       )}
-      {isOpen && <Basket order={order} />}
+      {isOpen && (
+        <Basket
+          order={order}
+          removeHandler={removeHandler}
+          handleBasketShow={handleBasketShow}
+          plusQuantity={plusQuantity}
+          minusQuantity={minusQuantity}
+        />
+      )}
     </div>
   );
 };
