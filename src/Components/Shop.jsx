@@ -8,7 +8,7 @@ import { Basket } from "./Basket.jsx";
 import { Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addBasketActionCreater } from "../Redux/basket-reducer";
-
+import { shopAPI } from "../api/shopAPI.jsx";
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,19 +21,20 @@ export const Shop = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(API_URL, { headers: { Authorization: API_KEY } }).then((res) =>
-      res
-        .json()
-        .then((data) => {
-          setGoods(data.featured);
-          setLoading(false);
-        })
-        .catch((error) => {
-          setLoading(false);
-          setError(error);
-        })
-    );
-    window.scrollTo(0, 0);
+    shopAPI().then((res) => console.log(res));
+    //.then((res) =>
+    //   res
+    //     .json()
+    //     .then((data) => {
+    //       setGoods(data.featured);
+    //       setLoading(false);
+    //     })
+    //     .catch((error) => {
+    //       setLoading(false);
+    //       setError(error);
+    //     })
+    // );
+    // window.scrollTo(0, 0);
   }, []);
 
   // const buyProduct = (product) => {
