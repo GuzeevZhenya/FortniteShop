@@ -5,6 +5,9 @@ import { GoodsList } from "./GoodsList.jsx";
 import { HandleServerAppError } from "./HandleServerAppError";
 import { Cart } from "./Cart.jsx";
 import { Basket } from "./Basket.jsx";
+import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addBasketActionCreater } from "../Redux/basket-reducer";
 
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
@@ -13,6 +16,8 @@ export const Shop = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState("idle");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
@@ -31,30 +36,35 @@ export const Shop = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const buyProduct = (product) => {
-    const itemIndex = order.findIndex(
-      (orderItem) => orderItem.id === product.id
-    );
+  // const buyProduct = (product) => {
+  //   const itemIndex = order.findIndex(
+  //     (orderItem) => orderItem.id === product.id
+  //   );
 
-    if (itemIndex < 0) {
-      const newItem = {
-        ...product,
-        quatity: 1,
-      };
-      setOrder([...order, product]);
-    } else {
-      const newOrder = order.map((orderItem, index) => {
-        if (index === orderItem.id) {
-          return {
-            ...order,
-            quatity: orderItem.quatity + 1,
-          };
-        } else {
-          return orderItem;
-        }
-      });
-      setOrder(newOrder);
-    }
+  //   if (itemIndex < 0) {
+  //     const newItem = {
+  //       ...product,
+  //       quatity: 1,
+  //     };
+  //     setOrder([...order, newItem]);
+  //     dispatch(addBasketActionCreater(order));
+  //   } else {
+  //     const newOrder = order.map((orderItem, index) => {
+  //       if (index === orderItem.id) {
+  //         return {
+  //           ...order,
+  //           quatity: orderItem.quatity + 1,
+  //         };
+  //       } else {
+  //         return orderItem;
+  //       }
+  //     });
+  //     dispatch(addBasketActionCreater(newOrder));
+  //   }
+  // };
+
+  const buyProduct = (product) => {
+    dispatch(addBasketActionCreater(product));
   };
 
   return (
@@ -66,7 +76,6 @@ export const Shop = () => {
       ) : (
         <GoodsList goods={goods} buyProduct={buyProduct} />
       )}
-      <Basket order={order} />
     </div>
   );
 };

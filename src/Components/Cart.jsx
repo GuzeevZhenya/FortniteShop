@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { totalQuantity } from "./utils";
 
 export const Cart = (props) => {
-  const { quantity = 0 } = props;
- 
+  const [total, setTotal] = useState(0);
+  const { openBasket } = props;
+
+  const quantity = useSelector((state) => state.basket.basket);
+
+  useEffect(() => {
+    setTotal(totalQuantity(quantity));
+  }, [quantity]);
+
   return (
-    <div className="cart">
-      <ShoppingCartIcon />
-      {quantity ? <span>{quantity}</span> : null}
-    </div>
+    <NavLink to={"/basket"} className="cart">
+      <ShoppingCartIcon onClick={openBasket} />
+      {quantity ? <span>{total}</span> : null}
+    </NavLink>
   );
 };

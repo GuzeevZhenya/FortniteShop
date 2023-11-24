@@ -111,3 +111,28 @@ li{
     opacity: 1;
   }
 }
+
+
+.basket-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.item-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+.item-name {
+  font-weight: bold;
+}
+.item-price {
+  color: green;
+}
+.total-quantity {
+  margin-top: 20px;
+}

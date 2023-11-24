@@ -31,7 +31,9 @@ export const GoodsItem = (props) => {
       </CardActionArea>
       <CardActions>
         <Button
-          onClick={() => buyProduct({ id, name, description, price,full_background })}
+          onClick={() =>
+            buyProduct({ id, name, description, price, full_background })
+          }
           size="small"
           color="primary"
         >
