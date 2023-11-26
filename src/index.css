@@ -12,24 +12,24 @@ code {
     monospace;
 }
 
-li{
+li {
   list-style: none;
 }
 
-.goods{
+.goods {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
-  gap:1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
   margin-top: 20px;
 }
 
-.card{
+.card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.cart{
+.cart {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
@@ -38,25 +38,26 @@ li{
   padding: 10px;
   background-color: rgb(76, 76, 196);
 }
+
 /* .card-content{
   flex-grow: 1;
 } */
 
 @media (min-width:767px) {
-  .cart{
+  .cart {
     top: 3rem;
     bottom: unset;
   }
 }
 
-.basket{
+.basket {
   width: 30rem;
   max-width: 95%;
-   
+
   position: fixed;
- top: 50%;
- left: 50%;
- transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgb(76, 76, 196);
   z-index: 999;
   padding: 0;
@@ -65,21 +66,21 @@ li{
 }
 
 
-.collection-item{
+.collection-item {
   text-align: center;
   margin: 0;
   padding: 10px;
   background-color: #61dafb;
 }
 
-.basket li{
+.basket li {
   text-align: left;
   padding: 5px;
   border: 1px solid black;
   font-size: 14px;
 }
 
-.basket-close{
+.basket-close {
   cursor: pointer;
   position: absolute;
   top: 0.5rem;
@@ -87,26 +88,25 @@ li{
   color: #fff;
 }
 
-.basket-delete{
+.basket-delete {
   cursor: pointer;
 }
-.basket-item{
-  display: flex;
-  justify-content: space-between;
-}
 
-.basket-item span{
+
+
+.basket-item span {
   margin: 0 10px;
   cursor: pointer;
   font-size: 20px;
 }
 
 @keyframes show {
-  from{
+  from {
     top: 70%;
     opacity: 0;
   }
-  to{
+
+  to {
     top: 50%;
     opacity: 1;
   }
@@ -117,22 +117,29 @@ li{
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  justify-content: space-between;
 }
+
 .item-image {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   margin-right: 10px;
 }
+
 .item-details {
   display: flex;
   flex-direction: column;
+  min-width: 300px;
 }
+
 .item-name {
   font-weight: bold;
 }
+
 .item-price {
   color: green;
 }
+
 .total-quantity {
   margin-top: 20px;
 }

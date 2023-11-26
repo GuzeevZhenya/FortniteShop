@@ -6,12 +6,14 @@ import { HandleServerAppError } from "./HandleServerAppError";
 import { Cart } from "./Cart.jsx";
 import { Basket } from "./Basket.jsx";
 import { Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBasketActionCreater } from "../Redux/basket-reducer";
-import { shopAPI } from "../api/shopAPI.jsx";
+import { fetchShopTC } from "../Redux/shop-reducer.jsx";
+
+
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
@@ -19,23 +21,30 @@ export const Shop = () => {
 
   const dispatch = useDispatch();
 
+
+  const shopItems = useSelector(state => state.shop.shop)
   useEffect(() => {
-    setLoading(true);
-    shopAPI().then((res) => console.log(res));
-    //.then((res) =>
-    //   res
-    //     .json()
-    //     .then((data) => {
-    //       setGoods(data.featured);
-    //       setLoading(false);
-    //     })
-    //     .catch((error) => {
-    //       setLoading(false);
-    //       setError(error);
-    //     })
-    // );
-    // window.scrollTo(0, 0);
+    // setLoading(true);
+    dispatch(fetchShopTC())
   }, []);
+
+ 
+
+  //.then((res) =>
+  //   res
+  //     .json()
+  //     .then((data) => {
+  //       setGoods(data.featured);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setLoading(false);
+  //       setError(error);
+  //     })
+  // );
+  // window.scrollTo(0, 0);
+
+
 
   // const buyProduct = (product) => {
   //   const itemIndex = order.findIndex(
