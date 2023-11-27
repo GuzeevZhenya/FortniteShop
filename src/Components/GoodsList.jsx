@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 
 export const GoodsList = (props) => {
   const { goods = [], buyProduct } = props;
-  const shopItems = useSelector(state => state.shop.shop)
-
-  console.log(shopItems)
+  const shopItems = useSelector((state) => state.shop.shop);
 
   if (goods.lenght) {
     return <h3>Nothing</h3>;

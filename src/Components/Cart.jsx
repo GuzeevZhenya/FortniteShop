@@ -16,7 +16,7 @@ export const Cart = (props) => {
 
   return (
     <NavLink to={"/basket"} className="cart">
-      <ShoppingCartIcon onClick={openBasket} />
+      <ShoppingCartIcon onClick={openBasket}  className="cart-icon"/>
       {quantity ? <span>{total}</span> : null}
     </NavLink>
   );

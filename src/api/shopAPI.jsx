@@ -17,3 +17,6 @@ export const shopAPI = {
     return axios.get("https://fortniteapi.io/v1/shop?lang=ru", { headers: { Authorization: API_KEY } }).then(res => res.data.featured);
   },
 };
+
+
+ 

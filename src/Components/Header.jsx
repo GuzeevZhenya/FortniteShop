@@ -20,12 +20,15 @@ export const Header = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           ></IconButton>
-          <NavLink to={"/"}>
-            <Button variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Shop
-            </Button>
-          </NavLink>
 
+          <NavLink
+            activeClassName="header-active"
+            
+            className={({ isActive }) => (isActive ? "header-active" : "header-link")}
+            to={"/"}
+          >
+            Shop
+          </NavLink>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

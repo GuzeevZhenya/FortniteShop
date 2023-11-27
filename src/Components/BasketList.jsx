@@ -17,6 +17,15 @@ export const BasketList = () => {
     dispatch(removeFromBasketActionCreater(id));
   };
 
+  const totalPrice = (price, quantity) => {
+    return price * quantity;
+  };
+
+  const totalPriceAllItems = (items) =>
+    items.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  const totalCountAllItems = (items) =>
+    items.reduce((total, item) => total + item.quantity, 0);
   return (
     <div>
       <h1>Корзина</h1>
@@ -31,18 +40,26 @@ export const BasketList = () => {
               />
               <div className="item-details">
                 <span className="item-name">{el.name}</span>
-                <span className="item-price">{el.price}</span>
+                <span className="item-price">
+                  {totalPrice(el.price, el.quantity)}
+                </span>
                 <div>
                   <span onClick={() => addQuantity(el.id)}>+</span>
                   <span className="item-quantity">{el.quantity}</span>
                   <span onClick={() => removeQuantity(el.id)}>-</span>
                 </div>
+                {/* <span>{totalPriceAllItems(el)}</span> */}
               </div>
             </div>
           );
         })}
 
-      <div className="total-quantity">{basketItems.quantity}</div>
+      <div className="basket-total">
+        <span className="basket-total__price">
+          Итого:{totalPriceAllItems(basketItems)}
+        </span>
+        <span className="basket-total__items">{totalCountAllItems(basketItems)}:товаров </span>
+      </div>
     </div>
   );
 };

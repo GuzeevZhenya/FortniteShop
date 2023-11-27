@@ -10,25 +10,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { addBasketActionCreater } from "../Redux/basket-reducer";
 import { fetchShopTC } from "../Redux/shop-reducer.jsx";
 
-
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(null);
-  const [status, setStatus] = useState("idle");
+
+  // const [status, setStatus] = useState("idle");
 
   const dispatch = useDispatch();
 
-
-  const shopItems = useSelector(state => state.shop.shop)
-  useEffect(() => {
-    // setLoading(true);
-    dispatch(fetchShopTC())
-  }, []);
-
+  const shopItems = useSelector((state) => state.shop.shop);
+  const status = useSelector((state) => state.app.status);
+  const error = useSelector((state) => state.app.error);
  
+  useEffect(() => {
+    dispatch(fetchShopTC());
+  }, []);
 
   //.then((res) =>
   //   res
@@ -43,8 +41,6 @@ export const Shop = () => {
   //     })
   // );
   // window.scrollTo(0, 0);
-
-
 
   // const buyProduct = (product) => {
   //   const itemIndex = order.findIndex(
@@ -81,7 +77,7 @@ export const Shop = () => {
     <div>
       <HandleServerAppError error={error} />
       <Cart quatity={order.length} />
-      {loading ? (
+      {status === "loading" ? (
         <Preloader />
       ) : (
         <GoodsList goods={goods} buyProduct={buyProduct} />

@@ -8,11 +8,16 @@ import thunkMiddleware from "redux-thunk";
 
 import { basketReducer } from "./Redux/basket-reducer";
 import { shopReducer } from "./Redux/shop-reducer";
+import { appReducer } from "./Redux/app-reducer";
 
 const rootReducer = combineReducers({
   basket: basketReducer,
-  shop: shopReducer
+  shop: shopReducer,
+  app: appReducer,
 });
 
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
+export const store = legacy_createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware)
+);
 window.store = store;
