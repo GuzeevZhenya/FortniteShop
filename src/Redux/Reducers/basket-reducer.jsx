@@ -54,11 +54,21 @@ export const basketReducer = (state = initialState, action) => {
 
         return el;
       });
+
       return {
         ...state,
         basket: updateBasket,
       };
     }
+    case "REMOVE-BASKET-ITEM": {
+      const updateBasket = state.basket.filter((el) => el.id !== action.id);
+
+      return {
+        ...state,
+        basket: updateBasket,
+      };
+    }
+
     default:
       return state;
   }
@@ -76,5 +86,10 @@ export const addToBasketActionCreater = (id) => ({
 
 export const removeFromBasketActionCreater = (id) => ({
   type: "REMOVE-FROM-BASKET",
+  id,
+});
+
+export const removeBasketItemActionCreater = (id) => ({
+  type: "REMOVE-BASKET-ITEM",
   id,
 });

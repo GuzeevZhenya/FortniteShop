@@ -96,7 +96,9 @@ a {
   cursor: pointer;
 }
 
-
+.basket-item {
+  position: relative;
+}
 
 .basket-item span {
   margin: 0 10px;
@@ -211,4 +213,12 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   background-color: #007bff;
   border: 2px solid #007bff;
+}
+
+.basket-item__remove{
+  width: 20px;
+  position: absolute;
+  right:20px;
+  top: 20px;
+  cursor: pointer;
 }

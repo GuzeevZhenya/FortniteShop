@@ -3,7 +3,7 @@ import { GoodsItem } from "./GoodsItem";
 import { useSelector } from "react-redux";
 
 export const GoodsList = (props) => {
-  const { goods = [], buyProduct } = props;
+  const { goods = [] } = props;
   const shopItems = useSelector((state) => state.shop.shop);
 
   if (goods.lenght) {
@@ -11,10 +11,7 @@ export const GoodsList = (props) => {
   }
   return (
     <div className="goods">
-      {shopItems &&
-        shopItems.map((el) => (
-          <GoodsItem key={el.id} {...el} buyProduct={buyProduct} />
-        ))}
+      {shopItems && shopItems.map((el) => <GoodsItem key={el.id} {...el} />)}
     </div>
   );
 };

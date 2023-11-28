@@ -4,18 +4,16 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { addBasketActionCreater } from "../../../Redux/Reducers/basket-reducer";
 
 export const GoodsItem = (props) => {
-  const {
-    id,
-    name,
-    description,
-    price,
-    image,
-    icon,
-    full_background,
-    buyProduct,
-  } = props;
+  const dispatch = useDispatch();
+  const buyProduct = (product) => {
+    dispatch(addBasketActionCreater(product));
+  };
+
+  const { id, name, description, price, image, icon, full_background } = props;
   return (
     <Card className="card">
       <CardActionArea>

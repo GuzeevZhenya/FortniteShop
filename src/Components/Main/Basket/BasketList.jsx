@@ -3,7 +3,9 @@ import { useSelector } from "react-redux";
 import {
   removeFromBasketActionCreater,
   addToBasketActionCreater,
+  removeBasketItemActionCreater,
 } from "../../../Redux/Reducers/basket-reducer";
+import { totalCountAllItems, totalPriceAllItems } from "../../utils/utils";
 
 export const BasketList = () => {
   const basketItems = useSelector((state) => state.basket.basket);
@@ -21,11 +23,10 @@ export const BasketList = () => {
     return price * quantity;
   };
 
-  const totalPriceAllItems = (items) =>
-    items.reduce((total, item) => total + item.price * item.quantity, 0);
+  const removeBasketItem = (id) => {
+    dispatch(removeBasketItemActionCreater(id));
+  };
 
-  const totalCountAllItems = (items) =>
-    items.reduce((total, item) => total + item.quantity, 0);
   return (
     <div>
       <h1>Корзина</h1>
@@ -33,6 +34,12 @@ export const BasketList = () => {
         basketItems.map((el) => {
           return (
             <div className="basket-item" key={el.id}>
+              <div
+                className="basket-item__remove"
+                onClick={() => removeBasketItem(el.id)}
+              >
+                X
+              </div>
               <img
                 src={el.full_background}
                 alt="Item 1"
@@ -48,6 +55,7 @@ export const BasketList = () => {
                   <span className="item-quantity">{el.quantity}</span>
                   <span onClick={() => removeQuantity(el.id)}>-</span>
                 </div>
+
                 {/* <span>{totalPriceAllItems(el)}</span> */}
               </div>
             </div>
@@ -58,7 +66,9 @@ export const BasketList = () => {
         <span className="basket-total__price">
           Итого:{totalPriceAllItems(basketItems)}
         </span>
-        <span className="basket-total__items">{totalCountAllItems(basketItems)}:товаров </span>
+        <span className="basket-total__items">
+          {totalCountAllItems(basketItems)}:товаров{" "}
+        </span>
       </div>
     </div>
   );
