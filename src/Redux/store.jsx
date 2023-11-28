@@ -6,14 +6,16 @@ import {
 } from "redux";
 import thunkMiddleware from "redux-thunk";
 
-import { basketReducer } from "./Redux/basket-reducer";
-import { shopReducer } from "./Redux/shop-reducer";
-import { appReducer } from "./Redux/app-reducer";
+import { basketReducer } from "./Reducers/basket-reducer";
+import { shopReducer } from "./Reducers/shop-reducer";
+import { appReducer } from "./Reducers/app-reducer";
+import { languageReducer } from "./Reducers/language-reducer";
 
 const rootReducer = combineReducers({
   basket: basketReducer,
   shop: shopReducer,
   app: appReducer,
+  language: languageReducer,
 });
 
 export const store = legacy_createStore(

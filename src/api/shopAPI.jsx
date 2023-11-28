@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_KEY } from "../config";
 
-
 const instance = axios.create({
   baseURL: "https://fortniteapi.io/v1/shop?lang=ru",
   withCredentials: false,
@@ -10,13 +9,12 @@ const instance = axios.create({
   },
 });
 
-
-
 export const shopAPI = {
-  getItems() {
-    return axios.get("https://fortniteapi.io/v1/shop?lang=ru", { headers: { Authorization: API_KEY } }).then(res => res.data.featured);
+  getItems(language = "ru") {
+    return axios
+      .get(`https://fortniteapi.io/v1/shop?lang=${language}`, {
+        headers: { Authorization: API_KEY },
+      })
+      .then((res) => res.data.featured);
   },
 };
-
-
- 

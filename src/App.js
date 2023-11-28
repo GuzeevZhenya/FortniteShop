@@ -1,9 +1,9 @@
 import "./App.css";
-import { Header } from "./Components/Header";
-import { Shop } from "./Components/Shop";
-import { Footer } from "./Components/Footer";
+import { Header } from "./Components/Header/Header";
+import { Shop } from "./Components/Main/Shop/Shop";
+import { Footer } from "./Components/Footer/Footer";
 import { Navigate, Route, Router, Routes } from "react-router-dom";
-import { Basket } from "./Components/Basket";
+import { Basket } from "./Components/Main/Basket/Basket";
 
 function App() {
   return (

@@ -1,5 +1,6 @@
-import { shopAPI } from "../api/shopAPI";
-import { setStatusAC, setErrorAC } from "./app-reducer";
+import { shopAPI } from "../../api/shopAPI";
+import { setStatusAC } from "./app-reducer";
+import { handleServerNetworkError } from "../../Components/utils/error-utils";
 
 const initialState = {
   shop: [],
@@ -20,17 +21,17 @@ const getShopItemsAC = (items) => ({
   items,
 });
 
-export const fetchShopTC = () => {
+export const fetchShopTC = (language = "ru") => {
   return (dispatch) => {
     dispatch(setStatusAC("loading"));
     shopAPI
-      .getItems()
+      .getItems(language)
       .then((res) => {
         dispatch(getShopItemsAC(res));
         dispatch(setStatusAC("succeeded"));
       })
       .catch((error) => {
-        dispatch(setErrorAC(error));
+        handleServerNetworkError(error, dispatch);
       });
   };
 };

@@ -1,31 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { API_URL, API_KEY } from "../config.js";
-import { Preloader } from "./Preloader.jsx";
-import { GoodsList } from "./GoodsList.jsx";
-import { HandleServerAppError } from "./HandleServerAppError";
-import { Cart } from "./Cart.jsx";
-import { Basket } from "./Basket.jsx";
+import { API_URL, API_KEY } from "../../../config.js";
+import { Preloader } from "../../Preloader/Preloader.jsx";
+import { GoodsList } from "../Goods/GoodsList.jsx";
+import { ErrorSnackbar } from "../ErorSnackbar/ErrorSnackbar.jsx";
+import { Cart } from "../Goods/Cart.jsx";
+import { Basket } from "../Basket/Basket.jsx";
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addBasketActionCreater } from "../Redux/basket-reducer";
-import { fetchShopTC } from "../Redux/shop-reducer.jsx";
+import { addBasketActionCreater } from "../../../Redux/Reducers/basket-reducer.jsx";
+import { fetchShopTC } from "../../../Redux/Reducers/shop-reducer.jsx";
 
 export const Shop = () => {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-
-  // const [status, setStatus] = useState("idle");
 
   const dispatch = useDispatch();
 
-  const shopItems = useSelector((state) => state.shop.shop);
   const status = useSelector((state) => state.app.status);
-  const error = useSelector((state) => state.app.error);
- 
+  const languageMain = useSelector((state) => state.language.language);
+
   useEffect(() => {
-    dispatch(fetchShopTC());
+    dispatch(fetchShopTC(languageMain));
   }, []);
 
   //.then((res) =>
@@ -75,7 +71,7 @@ export const Shop = () => {
 
   return (
     <div>
-      <HandleServerAppError error={error} />
+      <ErrorSnackbar />
       <Cart quatity={order.length} />
       {status === "loading" ? (
         <Preloader />

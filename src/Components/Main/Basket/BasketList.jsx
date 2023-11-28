@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import {
   removeFromBasketActionCreater,
   addToBasketActionCreater,
-} from "../Redux/basket-reducer";
+} from "../../../Redux/Reducers/basket-reducer";
 
 export const BasketList = () => {
   const basketItems = useSelector((state) => state.basket.basket);

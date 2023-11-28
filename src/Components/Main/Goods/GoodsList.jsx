@@ -12,7 +12,9 @@ export const GoodsList = (props) => {
   return (
     <div className="goods">
       {shopItems &&
-        shopItems.map((el) => <GoodsItem {...el} buyProduct={buyProduct} />)}
+        shopItems.map((el) => (
+          <GoodsItem key={el.id} {...el} buyProduct={buyProduct} />
+        ))}
     </div>
   );
 };
